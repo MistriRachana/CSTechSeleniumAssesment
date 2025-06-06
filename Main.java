@@ -5,7 +5,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
-
 import java.time.Duration;
 import java.util.Set;
 
@@ -25,7 +24,7 @@ public class Main {
         WebElement searchButton = driver.findElement(By.xpath("//input[@id='nav-search-submit-button'] "));
         searchButton.click();
 
-        WebElement selectBrandTitan = driver.findElement(By.xpath("((//*[contains(text(),'Titan')])[11]//preceding::label)[7]"));
+        WebElement selectBrandTitan = driver.findElement(By.xpath("(//*[contains(text(),'Brands')])[2]//following::span[7]//i"));
         selectBrandTitan.click();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
@@ -68,10 +67,12 @@ public class Main {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", left);
         js.executeScript("arguments[0].setAttribute('style', 'left: " + leftOffset + "px;')", left);
+        Thread.sleep(10000);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", right);
         js.executeScript("arguments[0].setAttribute('style', 'left: " + (sliderWidth - rightOffset) + "px;')", right);
+        Thread.sleep(10000);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
 
@@ -93,13 +94,13 @@ public class Main {
         }
 
         WebElement fetchPrice = driver.findElement(By.xpath("(//span[@class='a-price-whole'])[1]"));
-        System.out.println("Fetched Price : "+fetchPrice.getText());
+        System.out.println("Total Price : "+fetchPrice.getText());
         WebElement fetchDiscount = driver.findElement(By.xpath("(//span[@class='a-size-large a-color-price savingPriceOverride aok-align-center reinventPriceSavingsPercentageMargin savingsPercentage'])[1]"));
-        System.out.println("Fetched Discount : "+fetchDiscount.getText());
+        System.out.println("Discount Applied : "+fetchDiscount.getText());
         WebElement fetchMrp = driver.findElement(By.xpath("(//span[@class='a-price a-text-price'])[1]"));
-        System.out.println("Fetched M.R.P. : "+fetchMrp.getText());
+        System.out.println("M.R.P. : "+fetchMrp.getText());
 
-        System.out.println("All Filters Applied ");
+        System.out.println("Passed!! ");
         driver.quit();
     }
 }
